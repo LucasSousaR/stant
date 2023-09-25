@@ -1,0 +1,25 @@
+pt-BR:
+  flash:
+    actions:
+      warning: 'Ooops!'
+      success: 'Sucesso!'
+      new:
+        success: ['Ok!', 'Cadastrado com sucesso!']
+        error: ['Ooops!', 'Ocorreu algum erro...']
+      create:
+        success: ['Ok!', 'Cadastrado com sucesso!']
+        error: ['Ooops!', 'Ocorreu algum erro...']
+      update:
+        success: ['Ok!', 'Alterado com sucesso!']
+        error: ['Ooops!', 'Ocorreu algum erro...']
+      destroy:
+        success: ['Ok!', 'Deletado com sucesso!']
+        error: ['Ooops!', 'Ocorreu algum erro...']
+    users:
+      sessions:
+        new:
+          error: ''
+          success: ''
+        create:
+          error: ''
+          success: ''

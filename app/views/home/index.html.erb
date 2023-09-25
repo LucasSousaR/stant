@@ -1,0 +1,67 @@
+<p style="color: green"><%= notice %></p>
+<style>
+    .input_width {
+        width: 100%;
+    }
+</style>
+
+
+<div data-controller="context-menu" class="container mt-5">
+
+  <div class="card card-default">
+    <div class="card-body">
+      <H2> Dashboard </H2>
+      <hr class="d-print-none">
+      <%= search_form_for @q, url: {  } do |f| %>
+        <%= f.select :id_eq,  Track.all.map{ |i| [i.name, i.id] }, include_blank: 'Todos', required: false %>
+        <%= f.submit "Buscar", class: "btn btn-success float-right" %>
+      <%end %>
+    </div>
+  </div>
+
+
+
+  <br>
+
+  <div class="card card-default">
+    <div class="card-body">
+      <H2> Montar a planilha </H2>
+      <hr class="d-print-none">
+      <%if @track.present? %>
+        <table>
+          <tr>
+            <th><%=@track.name %></th>
+          </tr>
+          <% @track_session_speech_am.each do |am| %>
+            <%  if am[:duration] != ""
+                  duration = "#{am[:duration]} min"
+                else
+                  duration =  ""
+                end%>
+            <tr>
+              <td><%= am[:hour_start] %></td>
+              <td><%= am[:name_speech] %></td>
+              <td><%= duration %></td>
+            </tr>
+          <% end %>
+          <% @track_session_speech_pm.each do |pm| %>
+            <%  if pm[:duration] != ""
+                  duration = "#{pm[:duration]} min"
+                else
+                  duration =  ""
+                end%>
+            <tr>
+              <td><%= pm[:hour_start] %></td>
+              <td><%= pm[:name_speech] %></td>
+              <td><%= duration %></td>
+            </tr>
+          <% end %>
+        </table>
+      <%end %>
+
+
+    </div>
+  </div>
+
+
+</div>

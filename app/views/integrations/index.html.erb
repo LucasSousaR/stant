@@ -1,0 +1,36 @@
+<p style="color: green"><%= notice %></p>
+<div data-controller="context-menu" class="container mt-5">
+  <div class="card card-default">
+    <div class="card-body">
+      <%= partial_simple_form_for(:create_integration, url: integrations_path) do |f| %>
+        <%= f.input :file, as: :file, input_html: { class: 'filestyle', data: { classbutton: 'btn btn-secondary', classinput: 'form-control inline', text: 'Selecionar arquivo', icon: '<span class="fa fa-upload mr-2"/>' }, direct_upload: false } %>
+        <hr class="d-print-none">
+        <div class="col-xl-12">
+          <div class="clearfix">
+            <div class="float-right" >
+              <%= link_to 'Voltar', root_path, class: 'btn btn-secondary' %>
+              <%= f.submit 'Fazer Upload', class: 'btn btn-primary' %>
+            </div>
+
+          </div>
+        </div>
+      <% end %>
+
+    </div>
+  </div>
+  <br>
+  <div class="card card-default">
+    <div class="card-body">
+      <%= index_table_for(@items,actions: false, wrapper: false) do |t| %>
+
+        <% t.column :'Nome do Arquivo' do |i| %>
+          <% i.name.present? ?   i.name : '-' %>
+        <% end %>
+        <% t.column :'Tipo do Upload' do |i| %>
+          <% i.type_file.present? ?   i.type_file : '-' %>
+        <% end %>
+
+      <% end %>
+    </div>
+  </div>
+</div>

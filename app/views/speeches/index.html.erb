@@ -1,0 +1,33 @@
+<p style="color: green"><%= notice %></p>
+<div data-controller="context-menu" class="container mt-5">
+  <div class="card card-default">
+    <div class="card-body">
+      <h1> Palestras</h1>
+      <hr class="d-print-none">
+
+
+      <div class=" col-xl-12 float-left">
+        <div class="  float-left">
+          <a href="<%= new_speech_path %>" >
+            <button type="button" class="  btn btn-success mb-1">Novo Cadastro</button>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <br>
+  <div class="card card-default">
+    <div class="card-body">
+      <%= index_table_for(@items, actions: %w(show edit destroy), wrapper: false) do |t| %>
+
+        <% t.column :'Tema da Palestra' do |i| %>
+          <% i.name.present? ?   i.name : '-' %>
+        <% end %>
+        <% t.column :'Duração' do |i| %>
+          <% i.duration.present? ?   "#{i.duration} min"  : '-' %>
+        <% end %>
+
+      <% end %>
+    </div>
+  </div>
+</div>

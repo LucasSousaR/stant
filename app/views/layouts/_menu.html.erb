@@ -1,0 +1,24 @@
+<!DOCTYPE HTML>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Menu Dropdown Horizontal - Linha de Código</title>
+  <!-- Aqui chamamos o nosso arquivo css externo -->
+  <link rel="stylesheet" type="text/css"  href="menu.css" />
+  <!--[if lte IE 8]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+</head>
+<body>
+<nav>
+  <ul class="menu">
+      <ul>
+        <li><a href="<%= root_path %>">Home</a></li>
+        <li><a href="<%= speeches_path %>">Paletras</a></li>
+        <li><a href="<%= tracks_path %>">Track</a></li>
+        <li><a href="<%= integrations_path%>">Upload</a></li>
+      </ul>
+  </ul>
+</nav>
+</body>
+</html>

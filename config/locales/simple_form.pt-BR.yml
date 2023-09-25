@@ -1,0 +1,123 @@
+pt-BR:
+  helpers:
+    select:
+      prompt: Por favor selecione
+      include_blank: Todos
+    submit:
+      create: Criar
+      update: Atualizar
+      user:
+        sign_in: "Entrar"
+        butoom: "Autenticar"
+        settings:
+          update_profile: 'Atualizar perfil'
+          update_password: 'Atualizar senha'
+
+  simple_form:
+    "yes": 'Sim'
+    "no": 'Não'
+    required:
+      text: 'obrigatório'
+      mark: '*'
+    labels:
+      q:
+        id_cont: 'Pesquisa por ID'
+        item_id: 'Pesquisa por ID'
+        name_or_email_cont: 'Pesquisa avançada'
+        role_id_eq: 'Função'
+        item_type: 'Tipo do item de pesquisa'
+        date_select_order_status: 'Status do usuário'
+        units_id_eq: 'Agências'
+        name_cont: 'Nome'
+        created_at_gteq: 'Data Inicial'
+        created_at_lteq: 'Data Final'
+        name_or_email_or_cpf_cont: 'Pesquisa avançada'
+        company_id_eq: 'Cooperativa'
+        borrower_type_current_eq: 'Tipo de tomador'
+        type_current_eq: 'Tipo do item de pesquisa'
+        product_id_eq: 'Produto'
+        status_matches_any: 'Status'
+        status: 'Status'
+        date_select_order: 'Tipo de ordenação'
+        date_select_order_init: 'Seleção do tipo da data'
+
+        #Billing
+        user_name_cont: 'Pesquisar por nome'
+        user_id_eq: 'Responsável'
+    placeholders:
+      borrower:
+        cpf_search: '000.000.000-00'
+        cnpj_search: '00.000.000/0000-00'
+      q:
+        name_cont: 'Pesquisa por nome'
+        name_or_email_cont: 'Nome ou email'
+        borrower_name_or_borrower_email_or_borrower_cpf_cont: 'Pesquisa por CPF'
+        name_or_email_or_cpf_cont: 'Pesquisa por CPF'
+
+      user:
+        name: Insira seu nome completo
+        email: Insira seu e-mail
+        recover_email: Insira seu e-mail
+        password: Insira sua senha
+        current_password: Insira sua senha atual
+        password_confirmation: Confirme a sua senha
+    error_notification:
+      default_message: "Please review the problems below:"
+    # Examples
+    prompts:
+      defaults:
+  controllers:
+    cause_types:
+      one: 'Tipos de Causas'
+      other: 'Tipos de Causas'
+
+  # Default translations
+  attributes:
+    value: 'Valor'
+    name: 'Nome'
+    code: 'Código'
+    cpf: 'CPF'
+    type_user: 'Usuário para'
+    cnpj: 'CNPJ'
+    social_name: 'Razão social'
+    opening_date_cnpj: 'Data de abertura'
+    cpf_formatted: 'CPF'
+    cnpj_formatted: 'CNPJ'
+    email: 'Email'
+    birthday: 'Data de nascimento'
+    gender: 'Selecione o gênero'
+    phone_number: 'Número de telefone'
+    phone: 'Número de telefone'
+    cep: 'CEP'
+    description: 'Descrição'
+    tenant_name: 'Tenant'
+    role: 'Função'
+    company: 'Empresa'
+    uf: 'Estado'
+    city: 'Cidade'
+    district: 'Bairro'
+    number: 'Número'
+
+    # dados de avalista
+
+
+  activerecord:
+    attributes:
+      user:
+        return_rate: 'Taxa de retorno'
+        coop_number: 'Número da cooperativa'
+        fancy_name: 'Nome fantasia'
+        company_name: 'Razão Social'
+        cnpj: 'CNPJ'
+        bank: 'Banco'
+        agency: 'Agência'
+        bank_account: 'Conta bancária'
+        companies: 'Empresas'
+        reseller: 'ATD'
+        manager: 'Gestor'
+        image: 'Foto do perfil'
+  activemodel:
+    attributes:
+
+
+

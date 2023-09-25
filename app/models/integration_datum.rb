@@ -1,0 +1,2 @@
+class IntegrationDatum < ApplicationRecord
+end

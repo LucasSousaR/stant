@@ -1,0 +1,23 @@
+pt-BR:
+  # Messages
+  messages:
+    api:
+      almost_success:
+        body: 'Procedimento sera realizado em alguns minutos!'
+        title: 'Ok!'
+      success:
+        body: 'Procedimento realizado com sucesso!'
+        title: 'Ok!'
+      e_400:
+        body: 'Houve algum erro com a sua requisição, por favor tente novamente.'
+        title: 'Ooops!'
+      e_d:
+        body: 'Houve algum erro desconhecido com a sua requisição, revise seus dados.'
+        title: 'Ooops!'
+      invalid_format:
+        body: 'Formato de arquivo não suportado.'
+        title: 'Ooops!'
+    application:
+      error_token: 'Houve algum erro com a sua autenticação, faça o login novamente.'
+      success: 'Cadastro realizado com sucesso!'
+      delete_sure: 'Você tem certeza?'

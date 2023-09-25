@@ -1,0 +1,12 @@
+%p#notice= notice
+
+%p
+  %b Name:
+  = @integration.name
+%p
+  %b Type file:
+  = @integration.type_file
+
+= link_to 'Edit', edit_integration_path(@integration)
+\|
+= link_to 'Back', integrations_path

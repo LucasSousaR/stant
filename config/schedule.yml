@@ -1,0 +1,23 @@
+get_report:
+#cron: "0 */1 * * *"
+ cron: "*/1 * * * *"
+ class: "ReportJob"
+
+#get_contracts:
+  #cron: "0 */1 * * *"
+ # cron: "*/10 * * * *"
+  #class: "ShowReturnContractJob"
+
+
+# #https://crontab.guru/#*/1_*_*_*_*
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,52 @@
+pt-BR:
+  views:
+    home:
+      title: Página Inicial
+    login:
+      title: Faça login para continuar
+    reset_password:
+      title: Recuperar conta de usuário
+      sub_title: Insira o endereço de email associado com o seu usuário.
+      recover: Recuperar
+      forgot_your_password: Esqueceu sua senha?
+      sucess_titule: E-mail de redefinição de senha enviado
+      sucess: Um e-mail foi enviado para sua caixa de mensagens. Siga as instruções para redefinir sua senha.
+    topnavabar:
+      sign_out: Sair
+    sidebar:
+      welcome: Olá, %{name}
+      management: Gerenciando %{name}
+    settings:
+      title: Configurações
+      profile:
+        title: Perfil
+        sub_title: Dados Pessoais
+      account:
+        title: Conta
+        sub_title: Alterar senha
+
+  controllers:
+    integrations:
+      one: Integração
+      other: Integrações
+    speeches:
+      one: Palestra
+      other: Palestras
+  action:
+    one: 'Ação'
+    other: 'Ações'
+    home: Página inicial
+    index: Listar
+    new: Novo
+    show: Visualizar
+    edit: Editar
+    details: Detalhes
+    borrower: Tomador
+    password: Redefinir senha
+    account: Conta
+    destroy: Excluir
+    block: Bloquear
+    unblock: Desbloquear
+    manage: Gerenciar
+    search: Pesquisar
+

@@ -1,0 +1,34 @@
+<p style="color: green"><%= notice %></p>
+<div data-controller="context-menu" class="container mt-5">
+  <div class="card card-default">
+    <div class="card-body">
+      <h1> Tracks</h1>
+
+      <hr class="d-print-none">
+
+      <div class=" col-xl-12 float-left">
+        <div class="  float-left">
+          <a href="<%= new_track_path %>" >
+            <button type="button" style="margin-top: 15px; margin-left: 15px; margin-right: 15px; " class=" btn btn-success mb-1">Novo Cadastro</button>
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <br>
+  <div class="card card-default">
+    <div class="card-body">
+      <%= index_table_for(@items, actions: %w(show edit destroy), wrapper: false) do |t| %>
+
+        <% t.column :'Track' do |i| %>
+          <% i.name.present? ?   i.name : '-' %>
+        <% end %>
+        <% t.column :'Data da realização' do |i| %>
+          <% i.date.present? ?   l(i.date, format: :default) : '-'%>
+        <% end %>
+
+      <% end %>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,62 @@
+
+
+<p style="color: green"><%= notice %></p>
+<style>
+    .input_width {
+        width: 100%;
+    }
+</style>
+<div data-controller="context-menu" class="container mt-5">
+  <div class="card card-default">
+    <div class="card-body">
+      <%= simple_form_for(@item) do |f| %>
+
+        <div class="row  col-xl-12">
+          <div class="bg-content flex-1 col-xl-12"  style="margin-right: 24px; ">
+            <div class="title">
+              <div style="display: flex; justifyContent: 'space-between'">
+                EDITAR TRACK
+              </div>
+            </div>
+            <hr class="d-print-none">
+
+            <div class="row">
+              <div class="col-xl-12">
+                <%= f.input :name,as: :string,label: "Nome", wrapper_html: {} ,  input_html:{class: "input_width"},prompt: true , required: true %>
+              </div>
+
+              <div class="col-xl-12">
+                <%= f.input :date,as: :string, label: "Data da realização", input_html:{ class: "datepicker" ,  value: f.object.date.nil? ? l(Date.today ) : l(f.object.date, format: :date_only) }, required: true %>
+              </div>
+            </div>
+
+            <hr class="d-print-none">
+            <div class="col-xl-12">
+              <div class="clearfix">
+                <div class="float-right" >
+                  <%= link_to 'Voltar', tracks_path, class: 'btn btn-secondary' %>
+
+                  <%= f.submit 'Salvar', class: 'btn btn-primary' %>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+
+      <% end %>
+
+    </div>
+  </div>
+
+</div>
+
+<script>
+    $(document).ready(function () {
+        $('.datepicker').datepicker({
+            format: 'dd/mm/yyyy',
+            language: 'pt-BR'
+        });
+    });
+
+</script>
