@@ -40,7 +40,7 @@ Este é um projeto Ruby on Rails que monta uma organização de horarios de pale
 
 ## Autores
 
-- [Nome do Autor](https://github.com/LucasSousaR)
+- [Lucas Sousa Rodrigues](https://github.com/LucasSousaR)
 
 ## Licença
 
