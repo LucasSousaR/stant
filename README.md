@@ -24,7 +24,7 @@ Este é um projeto Ruby on Rails que monta uma organização de horarios de pale
 
 ## Configuração
 
-- Configure as chaves de ambiente em `config/databasse.yml`.
+- Configure as chaves de ambiente em `config/database.yml`.
 
 ## Uso
 
