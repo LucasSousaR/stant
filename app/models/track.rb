@@ -60,6 +60,7 @@ class Track < ApplicationRecord
       id_positions[index]  = {id: id, hour: hours_positions[index] }
     end
     # Retornar as posições dos minutos no intervalo
+    id_positions.reject! { |obj| obj[:hour].nil? }
     id_positions
 
   end
@@ -77,46 +78,59 @@ class Track < ApplicationRecord
 
     [hours_left, minutes_left]
   end
+  def calculate_add_hours(hours_str, minutes_to_add)
+    # Dividir a string em horas e minutos
+    hours, minutes = hours_str.split(':').map(&:to_i)
 
+    # Converter horas e minutos para minutos totais
+    total_minutes = hours * 60 + minutes + minutes_to_add
+
+    # Calcular as horas e minutos restantes
+    hours_left = total_minutes / 60
+    minutes_left = total_minutes % 60
+
+    [hours_left, minutes_left]
+  end
   def sessions_speechs
 
-    sessions = self.sessions.uniq
+    if self.check_am == false  || self.check_pm == false
 
-    sessions.each do |session|
-      speechs = Speech.where(check_session: false).pluck(:id, :duration)
-      if speechs.present?
-        sp = self.minutes_in_interval(session.start, speechs, session.finish)
+      sessions = self.sessions.uniq
 
-        sp.each do |s|
+      sessions.each do |session|
+        speechs = Speech.where(check_session: false).pluck(:id, :duration)
+        if speechs.present?
+          sp = self.minutes_in_interval(session.start, speechs, session.finish)
 
-          track_session_speech = TrackSessionSpeech.where(track_id: self.id, session_id: session.id, speech_id: nil)&.last
+          sp.each do |s|
 
-          if track_session_speech.present?
-            track_session_speech.speech_id = s[:id]
-          else
-            track_session_speech =  TrackSessionSpeech.find_or_initialize_by(
+            track_session_speech = TrackSessionSpeech.where(track_id: self.id, session_id: session.id, speech_id: nil)&.last
+
+            if track_session_speech.present?
+              track_session_speech.speech_id = s[:id]
+            else
+              track_session_speech =  TrackSessionSpeech.find_or_initialize_by(
                 track_id:self.id,
                 session_id: session.id,
                 speech_id: s[:id]
-            )
+              )
 
+            end
 
+            speech = Speech.find(s[:id])
+            speech.check_session = true
+            speech.save!
+
+            #track_session_speech.initial_hour =  session.start
+            track_session_speech.finish_hour = s[:hour]
+            track_session_speech.save!
 
           end
-
-
-          speech = Speech.find(s[:id])
-          speech.check_session = true
-          speech.save!
-
-          #track_session_speech.initial_hour =  session.start
-          track_session_speech.finish_hour = s[:hour]
-          track_session_speech.save!
-
         end
-      end
 
+      end
     end
+
   end
 
   def track_session_speech
@@ -138,21 +152,40 @@ class Track < ApplicationRecord
         else
           minutes = minutes_left.to_s
         end
-
-        if session.am_pm == "am"
-          track_session_speech_am[index] = {name_speech: speech.name, duration: speech.duration.to_s, hour_start: "#{hours_left}:#{minutes}" }
-          count_am += 1
-        else
-          track_session_speech_pm[index] = {name_speech: speech.name, duration: speech.duration.to_s, hour_start: "#{hours_left}:#{minutes}" }
-          count_pm += 1
+        am_pm = speech.sessions.where(id:session.id)&.last&.am_pm
+        if am_pm.present?
+          if am_pm == "am"
+            track_session_speech_am[index] = {name_speech: speech.name, am_pm: "am", duration: speech.duration.to_s, hour_start: "#{hours_left}:#{minutes}" }
+            count_am += 1
+          else
+            track_session_speech_pm[index] = {name_speech: speech.name,  am_pm: "pm", duration: speech.duration.to_s, hour_start: "#{hours_left}:#{minutes}" }
+            count_pm += 1
+          end
         end
 
       end
+      track_session_speech_am.compact!
+      track_session_speech_pm.compact!
 
       if session.am_pm == "am"
-        track_session_speech_am[count_am] = {name_speech: "Almoço", duration: "" , hour_start: "12:00" }
+
+        track_session_speech_am[count_am] = {name_speech: "Almoço", am_pm: "am", duration: "" , hour_start: "12:00" }
+        self.check_am = true
+        self.save!
+
       else
-        track_session_speech_pm[count_pm] = {name_speech: "Evento de Networking", duration: "" , hour_start: "17:00" }
+
+        calculate_hours = calculate_add_hours(track_session_speech_pm[count_pm - 1][:hour_start], track_session_speech_pm[count_pm - 1][:duration].to_i)
+
+        if "#{calculate_hours[0]}.#{calculate_hours[1]}".to_f > 16
+          track_session_speech_pm[count_pm] = {name_speech: "Evento de Networking",am_pm: "pm", duration: "" , hour_start: "17:00" }
+        elsif "#{calculate_hours[0]}.#{calculate_hours[1]}".to_f < 16
+          track_session_speech_pm[count_pm] = {name_speech: "Evento de Networking",am_pm: "pm", duration: "" , hour_start: "16:00" }
+        end
+
+        self.check_pm = true
+        self.save!
+
       end
 
     end

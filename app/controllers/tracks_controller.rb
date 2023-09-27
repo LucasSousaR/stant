@@ -42,7 +42,7 @@ class TracksController < ApplicationController
 
   # GET /speeches/1/edit
   def edit
-    @item = set_items
+    @item = model_name.where(id: params[:id].to_i)&.last
 
     respond_to do |format|
       format.html  #index.html.erb
@@ -54,6 +54,9 @@ class TracksController < ApplicationController
   def create
     @item = model_name.new(items_params)
     sessions =  Session.all
+
+    @item.check_am = false
+    @item.check_pm = false
 
     respond_to do |format|
       if @item.save
@@ -88,16 +91,13 @@ class TracksController < ApplicationController
   # DELETE /speeches/1 or /speeches/1.json
   def destroy
 
-
       @item.speeches.each do |speech|
         speech.check_session = false
         speech.save!
       end
 
       @item.track_session_speeches.destroy
-
-
-    @item.destroy
+      @item.destroy
 
     respond_to do |format|
       format.html { redirect_to "#{track_url.to_s.gsub(track_path, '')}/tracks", notice: "Deletado com sucesso" }
@@ -105,38 +105,24 @@ class TracksController < ApplicationController
     end
   end
 
-  def set_up_the_track
-    @track = set_items
-
-
-  end
-
-
 
   # Only allow a list of trusted parameters through.
 
   private
-  def model_name
-    Track
-  end
+
   # Use callbacks to share common setup or constraints between actions.
   def set_items
-
-      item = model_name.where(id: params[:id])
-      if item.present?
-        @item = item.last
+    @item = model_name.where(id: params[:id].to_i)&.last
+      if @item.present?
         if params[:method] == "delete"
           destroy
         end
-      else
-        @item = nil
-        respond_to do |format|
-          format.html { redirect_to "#{track_url.to_s.gsub(track_path, '')}/tracks", notice: "" }
-          format.json { head :no_content }
-        end
       end
+    @item
   end
-
+  def model_name
+    Track
+  end
   # Only allow a list of trusted parameters through.
   def items_params
     params.require(:track).permit(:id ,:name, :date)

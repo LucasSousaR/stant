@@ -13,6 +13,8 @@ class HomeController < ApplicationController
       @track.sessions_speechs
       @track_session_speech_am, @track_session_speech_pm =   @track.track_session_speech
 
+      @track_session_speech_am.sort_by!{  |obj| obj[:hour_start].split(':').map(&:to_i) }
+      @track_session_speech_pm.sort_by!{  |obj| obj[:hour_start].split(':').map(&:to_i) }
     end
 
 

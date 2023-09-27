@@ -24,7 +24,11 @@
           <% i.name.present? ?   i.name : '-' %>
         <% end %>
         <% t.column :'Duração' do |i| %>
-          <% i.duration.present? ?   "#{i.duration} min"  : '-' %>
+          <% if i.duration.present?
+               i.duration.to_i == 5 ? "lightning" : "#{i.duration} min"
+             else
+               '-'
+             end %>
         <% end %>
 
       <% end %>

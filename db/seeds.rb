@@ -8,5 +8,5 @@
 
 Session.create!([
                  {name: "matutino", am_pm:"am", start: 9, finish: 12 },
-                 {name: "Vespertino", am_pm:"pm", start: 13, finish: 16 }
+                 {name: "Vespertino", am_pm:"pm", start: 13, finish: 17 }
                 ])

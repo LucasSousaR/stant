@@ -13,7 +13,8 @@
       <H2> Dashboard </H2>
       <hr class="d-print-none">
       <%= search_form_for @q, url: {  } do |f| %>
-        <%= f.select :id_eq,  Track.all.map{ |i| [i.name, i.id] }, include_blank: 'Todos', required: false %>
+        <h4> Pesquisa por Track</h4>
+        <%= f.select :id_eq,  Track.all.map{ |i| [i.name, i.id] }, required: false ,  wrapper_html: {style: 'width:  26%;height: 40px;'}  %>
         <%= f.submit "Buscar", class: "btn btn-success float-right" %>
       <%end %>
     </div>
@@ -25,16 +26,17 @@
 
   <div class="card card-default">
     <div class="card-body">
-      <H2> Montar a planilha </H2>
+      <H2> Montar Palestra </H2>
       <hr class="d-print-none">
       <%if @track.present? %>
         <table>
           <tr>
             <th><%=@track.name %></th>
           </tr>
-          <% @track_session_speech_am.each do |am| %>
+          <% @track_session_speech_am.sort_by!{  |obj| obj[:hour_start].split(':').map(&:to_i) }.each do |am| %>
             <%  if am[:duration] != ""
-                  duration = "#{am[:duration]} min"
+                  duration =  am[:duration].to_i == 5 ? "lightning" : "#{am[:duration]} min"
+
                 else
                   duration =  ""
                 end%>
@@ -44,9 +46,9 @@
               <td><%= duration %></td>
             </tr>
           <% end %>
-          <% @track_session_speech_pm.each do |pm| %>
+          <% @track_session_speech_pm.sort_by!{  |obj| obj[:hour_start].split(':').map(&:to_i) }.each do |pm| %>
             <%  if pm[:duration] != ""
-                  duration = "#{pm[:duration]} min"
+                  duration = pm[:duration].to_i == 5 ? "lightning" : "#{pm[:duration]} min"
                 else
                   duration =  ""
                 end%>

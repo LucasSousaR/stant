@@ -10,17 +10,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_09_25_061133) do
+ActiveRecord::Schema[7.0].define(version: 2023_09_27_051332) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-
-  create_table "integration_data", force: :cascade do |t|
-    t.jsonb "current_data"
-    t.string "identification_upload"
-    t.integer "version", default: 0
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
 
   create_table "integrations", force: :cascade do |t|
     t.string "name"
@@ -64,8 +56,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_25_061133) do
     t.date "date"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "check_am"
+    t.boolean "check_pm"
   end
-
 
   add_foreign_key "track_session_speeches", "sessions"
   add_foreign_key "track_session_speeches", "speeches"

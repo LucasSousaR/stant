@@ -4,7 +4,11 @@ Rails.application.routes.draw do
   mount Sidekiq::Web => "/sidekiq"
   root "home#index"
   resources :tracks
-  resources :integrations
+
+  #API
+  get '/integrations', to: 'integrations#index'
+  post '/integrations', to: 'integrations#create'
+
   resources :speeches
   resources :home
   post "speeches/:id/destroy", to: "speeches#destroy"

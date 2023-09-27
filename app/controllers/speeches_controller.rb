@@ -41,7 +41,7 @@ class SpeechesController < ApplicationController
 
   # GET /speeches/1/edit
   def edit
-    @item = set_items
+    @item = model_name.where(id: params[:id].to_i)&.last
 
     respond_to do |format|
       format.html  #index.html.erb
@@ -91,26 +91,20 @@ class SpeechesController < ApplicationController
   # Only allow a list of trusted parameters through.
 
   private
-  def model_name
-    Speech
-  end
+
   # Use callbacks to share common setup or constraints between actions.
   def set_items
-    item = model_name.where(id: params[:id])
-    if item.present?
-      @item = item.last
+    @item = model_name.where(id: params[:id].to_i)&.last
+    if @item.present?
       if params[:method] == "delete"
         destroy
       end
-    else
-      @item = nil
-      respond_to do |format|
-        format.html { redirect_to "#{speech_url.to_s.gsub(speech_path, '')}/speeches", notice: "" }
-        format.json { head :no_content }
-      end
     end
+    @item
   end
-
+  def model_name
+    Speech
+  end
   # Only allow a list of trusted parameters through.
   def items_params
     params.require(:speech).permit(:id ,:name, :duration)

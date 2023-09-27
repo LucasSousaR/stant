@@ -1,5 +1,5 @@
 require_relative "boot"
-
+ENV['RANSACK_FORM_BUILDER'] = '::SimpleForm::FormBuilder'
 require "rails/all"
 
 # Require the gems listed in Gemfile, including any gems
@@ -16,7 +16,7 @@ module Test
     config.active_record.belongs_to_required_by_default = false
 
     # TimeZone
-    config.time_zone = 'Brasilia'
+    config.time_zone = 'America/Sao_Paulo'
     config.active_record.default_timezone = :local
     # config.active_record.time_zone_aware_attributes = 'America/Sao_Paulo'
 

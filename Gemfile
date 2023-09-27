@@ -96,3 +96,7 @@ gem "font-awesome-rails"
 gem 'smarter_csv', '~> 1.2', '>= 1.2.6'
 gem 'rest-client', '~> 2.0', '>= 2.0.1'
 gem 'bootstrap-datepicker-rails'
+gem 'carrierwave'
+gem 'scanf', '~> 1.0'
+gem "charlock_holmes", "~> 0.7.6"
+gem "roo", "~> 2.10.0"

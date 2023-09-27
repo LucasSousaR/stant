@@ -3,7 +3,7 @@ class Integrations::ProcessSimpleObjectWorker
   require 'securerandom'
   sidekiq_options queue: 'default'
 
-  def perform(row, file, config = {}, columns = nil,  file_name, user_id, company_id, integration_id, date_balance)
+  def perform(row, file, columns = nil)
     return if row.blank?
     #row = eval(row)
     # Prepare hash to save on DB
@@ -17,27 +17,32 @@ class Integrations::ProcessSimpleObjectWorker
     end
 
     begin
+      speech = {}
+      hash.to_h.each do |h|
+        if h[0].parameterize == "duracao"
+          if  h[1].parameterize != "lightning"
+            min = h[1].parameterize.gsub("min","")
+            speech["#{h[0].parameterize}"] = min.to_i
+          else
+            speech["#{h[0].parameterize}"] = 5
+          end
+        else
+          speech["#{h[0].parameterize}"] = h[1]
+        end
+      end
 
-      IntegrationDatum.create!(
-        identification_document: integration_id,
-        data_type: config['type'].to_s,
-        integration_id: integration_id,
-        version: config['version'],
-        current_data: hash.to_h
+      speech_up = Speech.find_or_initialize_by(
+        name: speech.to_h["palestra"],
+        duration: speech.to_h["duracao"],
+        check_session: false
       )
-
+      speech_up.save!
     rescue StandardError, UploadError => e
-      print "Erro em salvar a integration datum #{e}"
+      puts "Erro em salvar o upload  #{e}"
     rescue  Exception => e
-      print "Erro em salvar a integration datum #{e}"
+      puts "Erro em salvar a upload  #{e}"
     else
-      #File.delete(file)
-      #
-    end
-
 
     end
-
-
-
+    end
   end

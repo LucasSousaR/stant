@@ -3,47 +3,43 @@ class Integrations::ProcessObjectWorker
 
   sidekiq_options queue: 'default'
 
-  def perform(columns, row_json, type, version, id_column, num_coop,config, risk)
+  def perform(columns, row_json)
     return if row_json.blank?
 
     row = row_json.map { |i| i.try(:[], 'value') || '' }
 
-
-        identification_document = if !risk.nil?
-                                    row[num_coop].to_s + row[risk].to_s + row[id_column].to_s
-                                 elsif !num_coop.nil?
-                                   row[num_coop].to_s + row[id_column].to_s
-                                  else
-                                    row[id_column]
-                                  end
-
-        identification_document = identification_document.to_s.gsub(/[^\d]/, '')
-      # end
-
-
-      return if identification_document.blank?
-
-
-      data_type = if config['row_prefix'].present?
-                    "#{type}_#{row[config['row_prefix'].to_s.parameterize(separator: '_')]}"
-                  elsif config['var_prefix'].present?
-                    "#{type}_#{row[config['var_prefix'].to_s.parameterize(separator: '_')]}"
-                  else
-                    type
-                  end
-
-      object = IntegrationDatum.find_or_initialize_by(
-        identification_document: identification_document.gsub(/[^\d]/, ''),
-        data_type: data_type
-      )
-      object.data_type = type
-      object.version = version
-      hash = {}
-      columns.each_with_index do |i, idx|
-        hash[i] = row[idx]
+    hash = {}
+    columns.each_with_index do |i, idx|
+      hash[i] = row[idx]
+    end
+    begin
+      speech = {}
+      hash.to_h.each do |h|
+        if h[0].parameterize == "duracao"
+          if  h[1].parameterize != "lightning"
+            min = h[1].parameterize.gsub("min","")
+            speech["#{h[0].parameterize}"] = min.to_i
+          else
+            speech["#{h[0].parameterize}"] = 5
+          end
+        else
+          speech["#{h[0].parameterize}"] = h[1]
+        end
       end
-      object.current_data = hash
-      object.save!
+
+      speech_up = Speech.find_or_initialize_by(
+        name: speech.to_h["palestra"],
+        duration: speech.to_h["duracao"],
+        check_session: false
+      )
+      speech_up.save!
+    rescue StandardError, UploadError => e
+      puts "Erro em salvar o upload #{e}"
+    rescue  Exception => e
+      puts "Erro em salvar  o upload #{e}"
+    else
+
+    end
 
   end
 end

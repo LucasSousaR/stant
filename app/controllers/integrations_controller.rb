@@ -36,11 +36,11 @@ class IntegrationsController < ApplicationController
       flash[:warning] = ['Ooops!', 'Algo deu errado!']
     else
 
-      Integrations::ProcessFileWorker.perform_at(uploader.current_path, uploader.filename )
+      Integrations::ProcessFileWorker.perform_async(uploader.current_path, uploader.filename )
+
 
       respond_to do |format|
         format.html { redirect_to root_path, notice: "Importação iniciada" }
-
       end
       #flash[:success] = ['Tudo certo!', 'Importação iniciada']
       #redirect_back fallback_location: root_path
