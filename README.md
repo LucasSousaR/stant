@@ -2,7 +2,7 @@
 
 # Meu Projeto Ruby on Rails
 
-Este é um projeto Ruby on Rails que monta uma organização de horarios de palestradas cadastradas no sistema via upload de arquvo(xlsx/csv) ou pelo cadastro manual
+Este é um projeto Ruby on Rails que monta uma organização de horarios de palestras cadastradas no sistema via upload de arquvo(xlsx/csv) ou pelo cadastro manual
 
 ## Requisitos do Sistema
 
@@ -36,6 +36,18 @@ Este é um projeto Ruby on Rails que monta uma organização de horarios de pale
 - `app/`: Contém os arquivos da aplicação.
 - `config/`: Contém as configurações do Rails.
 - ...
+## Arquivo usados para testes
+Tanto o arquivo XLSX quanto CSV, 
+se encontram na pasta public:
+
+(public/upload_test_stant_xlsx.xlsx)
+(public/upload_test_stant_csv.csv)
+
+
+## Imagem do Sistema 
+
+![Exemplo de Imagem](public/captura.png)
+
 
 
 ## Autores
